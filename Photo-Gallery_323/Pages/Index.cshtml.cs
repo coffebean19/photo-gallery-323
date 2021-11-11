@@ -21,5 +21,10 @@ namespace Photo_Gallery_323.Pages
         {
 
         }
+
+        public void SignUp()
+        {
+
+        }
     }
 }

@@ -1,0 +1,51 @@
+﻿/* 
+Color palette
+#a8216b - 25%
+#ec1b4b -
+#f26a44
+#f7db69
+#2e9598 - 50% 
+*/
+
+/* Containers */
+
+#login-container {
+    background-color: #f7db69;
+    border-top-color: #f26a44;
+    border-right-color: #f26a44;
+    border-bottom-color: #ec1b4b;
+    border-left-color: #ec1b4b;
+    border-width: 0.5rem;
+    border-style: solid;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 1.8rem;
+}
+
+/* Form */
+
+#login-form {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+#sign-container {
+    display: flex;
+    justify-content: center;
+}
+
+#sign-container-left {
+    border-color: #f7db69 #a8216b #f7db69 #f7db69;
+    border-width: 0.5rem;
+    border-style: solid;
+}
+
+#sign-container-right {
+    border: 0.5rem solid #f7db69;
+}
