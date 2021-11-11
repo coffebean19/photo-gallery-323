@@ -4,6 +4,13 @@
     Layout = null;
 }
 
+@functions {
+    public string GetHello()
+    {
+        return "Hello";
+    }
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +21,14 @@
     <title>Sign up</title>
 </head>
 <body>
+    <h1>Ons is hier by die sign up!!!!</h1>
+    <div class="container">
+        <form action="/" method="post">
+            <input type="text" name="username" value="" placeholder="Username"/>
+            <input type="password" name="password" value="" />
 
+            <button onclick="">Create user</button>
+        </form>
+    </div>
 </body>
 </html>
