@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.Data.SqlClient;
 
 namespace Photo_Gallery_323.Pages
 {
@@ -22,9 +24,16 @@ namespace Photo_Gallery_323.Pages
 
         }
 
+        public void OnPost()
+        {
+            var username = Request.Form["username"];
+            var password = Request.Form["password"];
+        }
+
         public void SignUp()
         {
 
         }
+
     }
 }
