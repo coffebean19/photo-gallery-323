@@ -40,6 +40,11 @@ namespace Photo_Gallery_323
 
             try
             {
+                if (UserExist(username))
+                {
+                    return;
+                }
+
                 using (connection)
                 {
                     string sql = "INSERT INTO dbo.[User] (Username, Password) VALUES ('" + username + "', '" + hashed + "');";
@@ -57,6 +62,40 @@ namespace Photo_Gallery_323
             {
 
             }
+        }
+
+        public Boolean UserExist(string username)
+        {
+            try
+            {
+                using (connection)
+                {
+                    string sql = $"SELECT * FROM dbo.[User] WHERE [Username]={username};";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (!reader.HasRows)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+
+            }
+
+            return true;
         }
 
 
