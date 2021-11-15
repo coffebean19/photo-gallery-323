@@ -1,27 +1,32 @@
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.SqlClient;
 
-
-namespace Photo_Gallery_323.Pages
+namespace Photo_Gallery_323
 {
-    public class signupModel : PageModel
+    public class Database
     {
-        public void OnGet()
+        private SqlConnectionStringBuilder builder;
+
+        public SqlConnection connection;
+
+        public Database() 
         {
+            builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "cmpg323-server.database.windows.net";
+            builder.UserID = "Coffeebean";
+            builder.Password = "Simpel projek!";
+            builder.InitialCatalog = "cmpg323-db";
+            connection = new SqlConnection(builder.ConnectionString);
         }
 
-        public void OnPost()
+        public void InsertUser(string username, string password)
         {
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
 
-            //string we use to salt our hash
+            //Generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             byte[] salt = Convert.FromBase64String("Kem+zsDZYAl8PxvnVbd6+g==");
 
             // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
@@ -33,16 +38,9 @@ namespace Photo_Gallery_323.Pages
                 numBytesRequested: 256 / 8
                 ));
 
-
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "cmpg323-server.database.windows.net";
-                builder.UserID = "Coffeebean";
-                builder.Password = "Simpel projek!";
-                builder.InitialCatalog = "cmpg323-db";
-
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                using (connection)
                 {
                     string sql = "INSERT INTO dbo.[User] (Username, Password) VALUES ('" + username + "', '" + hashed + "');";
 
@@ -53,13 +51,14 @@ namespace Photo_Gallery_323.Pages
                         connection.Close();
                     }
                 }
+
             }
             catch (SqlException e)
             {
 
             }
-
-
         }
+
+
     }
 }

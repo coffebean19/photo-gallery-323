@@ -12,6 +12,8 @@ namespace Photo_Gallery_323.Pages
 {
     public class IndexModel : PageModel
     {
+        Database database;
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -28,6 +30,9 @@ namespace Photo_Gallery_323.Pages
         {
             var username = Request.Form["username"];
             var password = Request.Form["password"];
+
+            database = new Database();
+            database.InsertUser(username, password);
         }
 
         public void SignUp()
