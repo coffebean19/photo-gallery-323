@@ -23,7 +23,7 @@ namespace Photo_Gallery_323
             connection = new SqlConnection(builder.ConnectionString);
         }
 
-        public void InsertUser(string username, string password)
+        public Boolean InsertUser(string username, string password)
         {
 
             //Generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
@@ -42,7 +42,8 @@ namespace Photo_Gallery_323
             {
                 if (UserExist(username))
                 {
-                    return;
+                    connection.Close();
+                    return true;
                 }
 
                 using (connection)
@@ -62,6 +63,8 @@ namespace Photo_Gallery_323
             {
 
             }
+
+            return false;
         }
 
         public Boolean UserExist(string username)
@@ -79,14 +82,15 @@ namespace Photo_Gallery_323
                         {
                             if (!reader.HasRows)
                             {
+                                connection.Close();
                                 return false;
                             }
                             else
                             {
+                                connection.Close();
                                 return true;
                             }
                         }
-                        connection.Close();
                     }
                 }
             }
